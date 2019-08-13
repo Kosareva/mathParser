@@ -1,24 +1,37 @@
-var path = require('path');
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.ts',
+    entry: {
+        app: './src/index.ts',
+    },
     output: {
-        filename: "bundle.js",
+        filename: "[name].bundle.js",
         path: path.resolve(__dirname, 'dist')
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.jsx']
+        extensions: ['.js', '.jsx', '.tsx', '.ts', '.json']
     },
     devtool: "source-map",
     devServer: {
         contentBase: './dist'
     },
+    optimization: {
+        minimize: false
+    },
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
-                loader: 'awesome-typescript-loader'
+                loader: 'babel-loader'
             }
         ]
-    }
+    },
+    plugins: [
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            title: "Math parser"
+        })
+    ]
 };

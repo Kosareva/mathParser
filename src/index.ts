@@ -1,1 +1,1 @@
-import mathParser from './MathParser.js';
+import  "./math-parser";
